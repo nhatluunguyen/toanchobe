@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>🌟 Toán Vui Cho Bé</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF8F0;--card:#FFF;--primary:#FF6B6B;--secondary:#4ECDC4;--accent:#FFE66D;
+  --purple:#A855F7;--green:#10B981;--blue:#3B82F6;--orange:#F97316;--pink:#EC4899;
+  --text:#2D3748;--text-light:#718096;--coin:#FFD700;--r:20px;
+  --sh:0 8px 30px rgba(0,0,0,.12);--sh2:0 4px 15px rgba(0,0,0,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Nunito',sans-serif;background:var(--bg);min-height:100vh;max-width:480px;margin:0 auto;overflow-x:hidden}
+.screen{display:none;min-height:100vh;padding-bottom:82px;animation:slideUp .3s ease}
+.screen.active{display:block}
+/* HOME */
+.home-hdr{background:linear-gradient(135deg,#FF6B6B 0%,#FF8E53 50%,#FFE66D 100%);padding:28px 20px 52px;position:relative;overflow:hidden;border-radius:0 0 40px 40px}
+.home-hdr::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;background:rgba(255,255,255,.15);border-radius:50%}
+.top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;position:relative;z-index:1}
+.coin-disp{background:rgba(255,255,255,.92);border-radius:30px;padding:7px 16px;display:flex;align-items:center;gap:6px;font-family:'Baloo 2',cursive;font-weight:800;font-size:18px;color:#B8860B;box-shadow:0 4px 15px rgba(0,0,0,.15)}
+.set-btn{background:rgba(255,255,255,.92);border:none;border-radius:50%;width:44px;height:44px;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,.15)}
+.avatar-sec{display:flex;flex-direction:column;align-items:center;position:relative;z-index:1}
+.avatar-big{font-size:78px;filter:drop-shadow(0 8px 20px rgba(0,0,0,.25));animation:float 3s ease-in-out infinite}
+.player-nm{font-family:'Baloo 2',cursive;font-size:24px;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.2);margin-top:6px}
+.rank-bdg{background:rgba(255,255,255,.92);border-radius:20px;padding:5px 16px;font-size:14px;font-weight:700;margin-top:7px;display:flex;align-items:center;gap:5px}
+.xp-sec{padding:18px 20px 8px;margin-top:-28px;position:relative;z-index:2}
+.xp-card{background:#fff;border-radius:20px;padding:14px 18px;box-shadow:var(--sh)}
+.xp-row{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:#718096}
+.xp-track{background:#F0F0F0;border-radius:10px;height:12px;overflow:hidden;margin:7px 0}
+.xp-fill{height:100%;background:linear-gradient(90deg,#FF6B6B,#FFE66D);border-radius:10px;transition:width .6s ease}
+.streak-sec{padding:0 20px 14px}
+.streak-card{background:linear-gradient(135deg,#FF8E53,#FFA500);border-radius:20px;padding:14px 18px;display:flex;align-items:center;gap:12px;color:#fff;box-shadow:0 6px 20px rgba(255,140,0,.4)}
+.streak-flame{font-size:36px;animation:pulse 1.2s ease-in-out infinite}
+.daily-card{margin:0 20px 16px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:20px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 8px 25px rgba(102,126,234,.4);cursor:pointer}
+.play-btn{display:block;margin:0 20px;background:linear-gradient(135deg,#FF6B6B,#FF4757);color:#fff;border:none;border-radius:25px;padding:18px;font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;text-align:center;cursor:pointer;box-shadow:0 8px 25px rgba(255,71,87,.5);width:calc(100% - 40px);transition:transform .1s}
+.play-btn:active{transform:scale(.97)}
+/* GAMES */
+.games-grid{padding:14px 20px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g-card{border-radius:20px;padding:18px 12px;cursor:pointer;box-shadow:var(--sh2);transition:transform .15s;display:flex;flex-direction:column;align-items:center;text-align:center;min-height:130px}
+.g-card:active{transform:scale(.95)}
+.g-card.full{grid-column:1/-1;flex-direction:row;text-align:left;gap:15px;padding:18px 20px;min-height:auto}
+.g-em{font-size:46px;margin-bottom:7px}
+.g-nm{font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.2)}
+.g-desc{font-size:11px;color:rgba(255,255,255,.9);margin-top:4px}
+.g-balloon{background:linear-gradient(135deg,#74b9ff,#0984e3)}
+.g-fruit{background:linear-gradient(135deg,#55efc4,#00b894)}
+.g-compare{background:linear-gradient(135deg,#a29bfe,#6c5ce7)}
+.g-rocket{background:linear-gradient(135deg,#636e72,#2d3436)}
+.g-magic{background:linear-gradient(135deg,#fd79a8,#e84393)}
+/* PLAY */
+#screen-play{min-height:100vh;padding-bottom:20px}
+.bg-balloon{background:linear-gradient(180deg,#87CEEB 0%,#D4EFFF 60%,#C8F4C8 100%)}
+.bg-fruit{background:linear-gradient(180deg,#98FB98 0%,#C8F4C8 60%,#F0FFF0 100%)}
+.bg-compare{background:linear-gradient(180deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%)}
+.bg-rocket{background:linear-gradient(180deg,#000011 0%,#0a0a2e 50%,#1a0a3a 100%)}
+.bg-magic{background:linear-gradient(180deg,#2D1B69 0%,#6B35A3 50%,#C56BCC 100%)}
+.g-hdr{display:flex;justify-content:space-between;align-items:center;padding:14px 18px}
+.back-btn{background:rgba(255,255,255,.92);border:none;border-radius:50%;width:44px;height:44px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh2)}
+.g-score{background:rgba(255,255,255,.92);border-radius:20px;padding:7px 14px;display:flex;align-items:center;gap:10px;font-family:'Baloo 2',cursive;font-weight:700}
+.g-score-item{display:flex;align-items:center;gap:3px;font-size:15px}
+.q-area{padding:8px 18px 16px;display:flex;flex-direction:column;align-items:center}
+.q-card{background:rgba(255,255,255,.93);border-radius:24px;padding:22px 30px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.15);width:100%}
+.q-label{font-size:12px;font-weight:700;color:#718096;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
+.q-txt{font-family:'Baloo 2',cursive;font-size:46px;font-weight:900;color:var(--text);line-height:1.1}
+.q-prog{margin-top:10px;display:flex;justify-content:center;gap:5px;flex-wrap:wrap}
+.prog-dot{width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,.15);transition:background .3s;flex-shrink:0}
+.prog-dot.done{background:#10B981}
+.prog-dot.cur{background:#FF6B6B;transform:scale(1.3)}
+/* Balloons */
+.balloons-area{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;padding:18px 20px;margin-top:8px}
+.balloon{width:78px;height:96px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-size:26px;font-weight:800;color:#fff;cursor:pointer;transition:transform .15s;box-shadow:inset -7px -10px 18px rgba(0,0,0,.2),0 5px 15px rgba(0,0,0,.2);position:relative;animation:floatB 2s ease-in-out infinite;text-shadow:0 2px 4px rgba(0,0,0,.2)}
+.balloon::after{content:'▲';position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);font-size:11px;opacity:.7}
+.balloon:active{transform:scale(.88)}
+.balloon.popped{animation:pop .3s ease forwards;pointer-events:none}
+/* Fruits */
+.fruit-display{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding:10px;max-width:260px;margin:0 auto}
+.fi{font-size:34px;transition:all .3s;display:inline-block}
+.fi.removed{opacity:.15;filter:grayscale(1);transform:scale(.7)}
+/* Options */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:8px 18px}
+.opt-btn{background:rgba(255,255,255,.93);border:3px solid transparent;border-radius:18px;padding:18px 8px;font-family:'Baloo 2',cursive;font-size:30px;font-weight:800;cursor:pointer;text-align:center;box-shadow:0 4px 15px rgba(0,0,0,.15);transition:transform .15s,border-color .15s,background .2s;color:var(--text)}
+.opt-btn:active{transform:scale(.93)}
+.opt-btn.correct{background:#d4edda !important;border-color:#28a745 !important;color:#155724 !important;animation:correctBounce .4s ease}
+.opt-btn.wrong{background:#f8d7da !important;border-color:#dc3545 !important;color:#721c24 !important;animation:shake .3s}
+/* Compare */
+.cmp-area{display:flex;gap:20px;justify-content:center;align-items:center;padding:16px 20px}
+.cmp-grp{text-align:center;min-width:100px}
+.cmp-num{font-family:'Baloo 2',cursive;font-size:52px;font-weight:900}
+.cmp-dots{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;max-width:110px}
+.cmp-op-btns{display:flex;justify-content:center;gap:16px;padding:18px}
+.cop{width:72px;height:72px;border-radius:50%;border:none;font-size:30px;font-family:'Baloo 2',cursive;font-weight:900;cursor:pointer;transition:transform .15s;box-shadow:0 6px 20px rgba(0,0,0,.3);color:#fff}
+.cop:active{transform:scale(.88)}
+.cop-lt{background:linear-gradient(135deg,#FF6B6B,#FF4757)}
+.cop-gt{background:linear-gradient(135deg,#4ECDC4,#26de81)}
+.cop-eq{background:linear-gradient(135deg,#FFE66D,#F9CA24);color:#333}
+/* Numpad */
+.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;padding:12px 18px}
+.np-btn{background:rgba(255,255,255,.92);border:none;border-radius:14px;padding:18px;font-family:'Baloo 2',cursive;font-size:26px;font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.2);transition:transform .1s;color:var(--text)}
+.np-btn:active{transform:scale(.9)}
+.np-ok{background:linear-gradient(135deg,#26de81,#20bf6b);color:#fff;grid-column:2/4}
+.ans-disp{background:rgba(255,255,255,.95);border-radius:18px;padding:13px 28px;font-family:'Baloo 2',cursive;font-size:46px;font-weight:900;text-align:center;min-width:140px;margin:8px auto;display:block;box-shadow:var(--sh);color:var(--text)}
+/* SHOP */
+.shop-hdr{background:linear-gradient(135deg,#A855F7,#EC4899);padding:22px 20px 38px;border-radius:0 0 35px 35px;text-align:center;color:#fff}
+.tabs{display:flex;padding:13px 20px 4px;border-bottom:2px solid #F0F0F0}
+.tab-btn{flex:1;padding:9px;border:none;background:none;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--text-light);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s}
+.tab-btn.active{color:var(--purple);border-bottom-color:var(--purple)}
+.sh-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;padding:13px 18px}
+.sh-item{background:#fff;border-radius:14px;padding:13px 8px;text-align:center;box-shadow:var(--sh2);cursor:pointer;transition:transform .15s;border:2px solid transparent}
+.sh-item:active{transform:scale(.94)}
+.sh-item.owned{border-color:var(--green)}
+.sh-item.equipped{border-color:var(--primary);background:#FFF5F5}
+.sh-em{font-size:34px;margin-bottom:5px}
+.sh-nm{font-size:11px;font-weight:700;color:var(--text);margin-bottom:3px}
+.sh-price{font-family:'Baloo 2',cursive;font-size:12px;font-weight:800;color:#B8860B}
+.sh-status{font-size:10px;font-weight:700;color:var(--green)}
+/* PROGRESS */
+.prog-hdr{background:linear-gradient(135deg,#10B981,#3B82F6);padding:22px 20px 38px;border-radius:0 0 35px 35px;text-align:center;color:#fff}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:13px 18px}
+.stat-card{background:#fff;border-radius:14px;padding:14px;text-align:center;box-shadow:var(--sh2)}
+.stat-num{font-family:'Baloo 2',cursive;font-size:30px;font-weight:800}
+.stat-lbl{font-size:11px;color:var(--text-light);font-weight:700;margin-top:2px}
+.sec-ttl{font-family:'Baloo 2',cursive;font-size:19px;font-weight:800;color:var(--text);margin-bottom:11px}
+.weak-bar{margin-bottom:11px}
+.weak-track{background:#F0F0F0;border-radius:10px;height:11px;overflow:hidden;margin-top:4px}
+.weak-fill{height:100%;border-radius:10px;transition:width .8s ease}
+.hist-item{background:#fff;border-radius:11px;padding:11px 14px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--sh2)}
+.hist-ok{border-left:4px solid var(--green)}
+.hist-ng{border-left:4px solid var(--primary)}
+.chart-wrap{background:#fff;border-radius:18px;padding:18px;margin:0 18px 18px;box-shadow:var(--sh2)}
+.mini-chart{display:flex;align-items:flex-end;gap:5px;height:70px}
+.c-bar{flex:1;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#FF6B6B,#FF4757);transition:height .8s ease;min-height:4px}
+/* NAV */
+.bot-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;display:flex;box-shadow:0 -4px 20px rgba(0,0,0,.1);z-index:100;border-radius:24px 24px 0 0}
+.nav-item{flex:1;padding:11px 5px;border:none;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+.nav-icon{font-size:24px}
+.nav-lbl{font-size:10px;font-weight:700;color:var(--text-light)}
+.nav-item.active .nav-lbl{color:var(--primary)}
+/* MODALS */
+.modal-ov{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:200;display:none;justify-content:center;align-items:center;backdrop-filter:blur(4px);padding:20px}
+.modal-ov.show{display:flex}
+.modal-card{background:#fff;border-radius:28px;padding:28px;max-width:340px;width:100%;text-align:center;animation:popIn .35s cubic-bezier(.34,1.56,.64,1);max-height:90vh;overflow-y:auto}
+.modal-em{font-size:62px;margin-bottom:8px}
+.modal-ttl{font-family:'Baloo 2',cursive;font-size:26px;font-weight:800;color:var(--text)}
+.modal-body{color:var(--text-light);margin:9px 0;font-size:14px}
+.modal-btn{background:linear-gradient(135deg,#FF6B6B,#FF4757);color:#fff;border:none;border-radius:18px;padding:14px 38px;font-family:'Baloo 2',cursive;font-size:19px;font-weight:800;cursor:pointer;margin-top:14px;box-shadow:0 6px 20px rgba(255,71,87,.4);transition:transform .15s}
+.modal-btn:active{transform:scale(.95)}
+.lim-opts{display:flex;gap:7px;flex-wrap:wrap;margin-top:6px}
+.lim-btn{padding:7px 15px;border-radius:18px;border:2px solid #E2E8F0;background:#fff;font-family:'Baloo 2',cursive;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s}
+.lim-btn.sel{background:var(--primary);border-color:var(--primary);color:#fff}
+.op-tog{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;background:#F8F9FA;border-radius:11px;cursor:pointer;margin-bottom:6px}
+.tog{width:44px;height:24px;background:#CBD5E0;border-radius:12px;position:relative;transition:background .2s;flex-shrink:0}
+.tog.on{background:var(--green)}
+.tog::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;background:#fff;border-radius:50%;transition:left .2s}
+.tog.on::after{left:23px}
+.ach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;padding:0 18px 18px}
+.ach-item{background:#fff;border-radius:11px;padding:10px 4px;text-align:center;box-shadow:var(--sh2)}
+.ach-item.locked{opacity:.3;filter:grayscale(1)}
+.ach-em{font-size:26px}
+.ach-nm{font-size:9px;font-weight:700;color:var(--text);margin-top:3px}
+/* loading */
+#loading{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#FF6B6B,#FFE66D);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s}
+#loading.fade{opacity:0;pointer-events:none}
+/* fb */
+.feedback-pop{position:fixed;top:40%;left:50%;transform:translate(-50%,-50%);font-size:80px;z-index:300;pointer-events:none;animation:feedAnim .7s ease forwards}
+.coin-pop{position:fixed;font-family:'Baloo 2',cursive;font-size:20px;font-weight:800;color:#FFD700;text-shadow:0 2px 4px rgba(0,0,0,.3);z-index:300;pointer-events:none;animation:coinFly 1s ease forwards}
+.confetti-p{position:fixed;width:9px;height:9px;border-radius:2px;z-index:999;pointer-events:none;animation:confFall 1.2s ease forwards}
+.star-deco{position:absolute;pointer-events:none;animation:twinkle 1.5s ease-in-out infinite}
+/* ANIMATIONS */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes floatB{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-14px) rotate(3deg)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@keyframes pop{0%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:.8}100%{transform:scale(0);opacity:0}}
+@keyframes popIn{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes twinkle{0%,100%{opacity:.8}50%{opacity:.1}}
+@keyframes coinFly{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-80px) scale(1.4);opacity:0}}
+@keyframes feedAnim{0%{transform:translate(-50%,-50%) scale(.3);opacity:1}60%{transform:translate(-50%,-60%) scale(1.15);opacity:1}100%{transform:translate(-50%,-70%) scale(1);opacity:0}}
+@keyframes confFall{0%{transform:translateY(-10px) rotate(0);opacity:1}100%{transform:translateY(120px) rotate(720deg);opacity:0}}
+@keyframes slideUp{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes correctBounce{0%,100%{transform:scale(1)}40%{transform:scale(1.1)}70%{transform:scale(1.04)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+</style>
+</head>
+<body>
+<div id="loading">
+  <div style="font-size:80px;animation:float 1s ease-in-out infinite">🌟</div>
+  <div style="font-family:'Baloo 2',cursive;font-size:32px;font-weight:800;color:#fff;margin-top:14px">Toán Vui Cho Bé</div>
+  <div style="color:rgba(255,255,255,.8);font-size:16px;margin-top:5px">✨ Đang chuẩn bị... ✨</div>
+</div>
+
+<!-- HOME -->
+<div id="screen-home" class="screen">
+  <div class="home-hdr">
+    <div class="top-bar">
+      <button class="set-btn" onclick="showSettings()">⚙️</button>
+      <div class="coin-disp">🪙 <span id="h-coins">0</span></div>
+    </div>
+    <div class="avatar-sec">
+      <div class="avatar-big" id="h-avatar">🐱</div>
+      <div class="player-nm" id="h-name">Bé Yêu</div>
+      <div class="rank-bdg"><span id="h-rank-em">🐱</span> <span id="h-rank-nm">Chú Mèo Con</span></div>
+    </div>
+  </div>
+  <div class="xp-sec">
+    <div class="xp-card">
+      <div class="xp-row"><span id="xp-cur">0 XP</span><span id="xp-nxt">100 XP</span></div>
+      <div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+      <div style="text-align:center;font-size:11px;font-weight:700;color:#A0AEC0" id="xp-lvl-lbl">Hạng: Chú Mèo Con 🐱</div>
+    </div>
+  </div>
+  <div class="streak-sec">
+    <div class="streak-card">
+      <div class="streak-flame">🔥</div>
+      <div><div style="font-size:21px;font-weight:800;font-family:'Baloo 2',cursive" id="h-streak">0 ngày</div><div style="font-size:12px;opacity:.9">Học liên tiếp</div></div>
+      <div style="margin-left:auto;text-align:center"><div style="font-size:21px;font-weight:800;font-family:'Baloo 2',cursive" id="h-best">0</div><div style="font-size:11px;opacity:.9">Kỷ lục 🔥</div></div>
+    </div>
+  </div>
+  <div class="daily-card" onclick="startDaily()">
+    <div style="color:#fff"><div style="font-family:'Baloo 2',cursive;font-size:17px;font-weight:800">⭐ Thử Thách Hôm Nay</div><div style="font-size:12px;opacity:.9;margin-top:2px" id="daily-desc">10 câu hỏi · Thưởng 50 xu</div></div>
+    <div style="font-size:46px">🎯</div>
+  </div>
+  <button class="play-btn" onclick="navigate('games')">🚀 Chơi Nào!</button>
+  <div style="padding:16px 20px 0">
+    <div class="sec-ttl">🏆 Thành Tích</div>
+    <div class="ach-grid" id="h-ach-grid"></div>
+  </div>
+</div>
+
+<!-- GAMES -->
+<div id="screen-games" class="screen">
+  <div style="padding:18px 20px 8px;display:flex;justify-content:space-between;align-items:center">
+    <div><div style="font-family:'Baloo 2',cursive;font-size:24px;font-weight:800;color:#2D3748">🎮 Chọn Trò Chơi</div>
+    <div style="font-size:12px;color:#718096;margin-top:2px" id="lim-lbl">Kết quả ≤ 10</div></div>
+    <button onclick="showSettings()" style="background:#F8F9FA;border:none;border-radius:12px;padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer;color:#4A5568">⚙️ Cài đặt</button>
+  </div>
+  <div class="games-grid">
+    <div class="g-card g-balloon" onclick="startGame('balloon')"><div class="g-em">🎈</div><div class="g-nm">Bóng Bay</div><div class="g-desc">Phép cộng 2 số</div></div>
+    <div class="g-card g-fruit" onclick="startGame('fruit')"><div class="g-em">🍎</div><div class="g-nm">Vườn Quả</div><div class="g-desc">Phép trừ 2 số</div></div>
+    <div class="g-card g-compare" onclick="startGame('compare')"><div class="g-em">⚡</div><div class="g-nm">So Sánh Nào</div><div class="g-desc">Lớn hơn · Bé hơn</div></div>
+    <div class="g-card g-rocket" onclick="startGame('rocket')"><div class="g-em">🚀</div><div class="g-nm">Tên Lửa</div><div class="g-desc">Cộng 3 số</div></div>
+    <div class="g-card g-magic full" onclick="startGame('magic')"><div class="g-em" style="margin-bottom:0;font-size:40px">🔮</div><div><div class="g-nm" style="font-size:17px">Phù Thủy Toán ✨</div><div class="g-desc" style="font-size:12px">Luyện điểm yếu · Hỗn hợp</div></div></div>
+  </div>
+  <div style="padding:4px 18px 0"><div class="sec-ttl">🏆 Thành Tích</div><div class="ach-grid" id="g-ach-grid"></div></div>
+</div>
+
+<!-- PLAY -->
+<div id="screen-play" class="screen bg-balloon">
+  <div class="g-hdr">
+    <button class="back-btn" onclick="leaveGame()">◀</button>
+    <div id="g-title" style="font-family:'Baloo 2',cursive;font-size:17px;font-weight:800;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.3)">Bóng Bay</div>
+    <div class="g-score">
+      <div class="g-score-item">🪙<span id="g-coins">0</span></div>
+      <div class="g-score-item">🔥<span id="g-streak">0</span></div>
+      <div class="g-score-item">✅<span id="g-ok">0</span></div>
+    </div>
+  </div>
+  <div id="g-content"></div>
+</div>
+
+<!-- SHOP -->
+<div id="screen-shop" class="screen">
+  <div class="shop-hdr">
+    <div style="font-family:'Baloo 2',cursive;font-size:26px;font-weight:800">🛒 Cửa Hàng</div>
+    <div style="background:rgba(255,255,255,.2);border-radius:20px;padding:7px 20px;display:inline-flex;align-items:center;gap:7px;margin-top:9px;font-family:'Baloo 2',cursive;font-size:19px;font-weight:800">🪙 <span id="sh-coins">0</span> xu</div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('avatars',0)">🐱 Nhân Vật</button>
+    <button class="tab-btn" onclick="switchTab('backgrounds',1)">🌅 Nền</button>
+    <button class="tab-btn" onclick="switchTab('toys',2)">🎁 Phụ Kiện</button>
+  </div>
+  <div class="sh-grid" id="sh-grid"></div>
+</div>
+
+<!-- PROGRESS -->
+<div id="screen-progress" class="screen">
+  <div class="prog-hdr">
+    <div style="font-family:'Baloo 2',cursive;font-size:26px;font-weight:800">📊 Tiến Độ</div>
+    <div style="font-size:13px;opacity:.9;margin-top:4px">Theo dõi kết quả học tập của bé</div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-num" id="s-total" style="color:#FF6B6B">0</div><div class="stat-lbl">Tổng câu hỏi</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-acc" style="color:#10B981">0%</div><div class="stat-lbl">Độ chính xác</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-coins" style="color:#F9CA24">0</div><div class="stat-lbl">Xu kiếm được</div></div>
+    <div class="stat-card"><div class="stat-num" id="s-streak" style="color:#A855F7">0</div><div class="stat-lbl">Kỷ lục liên tiếp</div></div>
+  </div>
+  <div class="chart-wrap">
+    <div style="font-size:14px;font-weight:700;color:#2D3748;margin-bottom:11px">📈 7 Ngày Gần Đây</div>
+    <div class="mini-chart" id="mini-chart"><div style="color:#A0AEC0;font-size:13px;font-style:italic;margin:auto">Chưa có dữ liệu</div></div>
+  </div>
+  <div style="padding:0 18px 16px">
+    <div class="sec-ttl">🎯 Điểm Yếu Cần Rèn</div>
+    <div id="weak-bars"></div>
+    <button onclick="startGame('magic')" style="width:100%;background:linear-gradient(135deg,#FF6B6B,#FF4757);color:#fff;border:none;border-radius:18px;padding:14px;font-family:'Baloo 2',cursive;font-size:17px;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(255,71,87,.4);margin-top:10px">🔮 Luyện Điểm Yếu Ngay!</button>
+  </div>
+  <div style="padding:0 18px 18px">
+    <div class="sec-ttl">📜 Lịch Sử Gần Đây</div>
+    <div id="hist-list"></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="bot-nav">
+  <button class="nav-item active" onclick="navigate('home')" id="nav-home"><div class="nav-icon">🏠</div><div class="nav-lbl">Trang Chủ</div></button>
+  <button class="nav-item" onclick="navigate('games')" id="nav-games"><div class="nav-icon">🎮</div><div class="nav-lbl">Trò Chơi</div></button>
+  <button class="nav-item" onclick="navigate('shop')" id="nav-shop"><div class="nav-icon">🛒</div><div class="nav-lbl">Cửa Hàng</div></button>
+  <button class="nav-item" onclick="navigate('progress')" id="nav-progress"><div class="nav-icon">📊</div><div class="nav-lbl">Tiến Độ</div></button>
+</nav>
+
+<!-- MODAL: Settings -->
+<div class="modal-ov" id="modal-set">
+  <div class="modal-card">
+    <div style="font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;margin-bottom:14px">⚙️ Cài Đặt</div>
+    <div style="margin-bottom:14px;text-align:left"><div style="font-weight:700;font-size:14px;margin-bottom:6px">🔢 Giới Hạn Kết Quả</div>
+    <div class="lim-opts" id="lim-opts-btns">
+      <button class="lim-btn sel" onclick="selLim(10,this)">10</button>
+      <button class="lim-btn" onclick="selLim(20,this)">20</button>
+      <button class="lim-btn" onclick="selLim(30,this)">30</button>
+      <button class="lim-btn" onclick="selLim(40,this)">40</button>
+      <button class="lim-btn" onclick="selLim(50,this)">50</button>
+    </div></div>
+    <div style="margin-bottom:14px;text-align:left"><div style="font-weight:700;font-size:14px;margin-bottom:6px">🎮 Phép Tính</div>
+      <div class="op-tog" onclick="togOp('add2')"><span style="font-size:13px;font-weight:700">➕ Cộng 2 số</span><div class="tog on" id="tog-add2"></div></div>
+      <div class="op-tog" onclick="togOp('sub2')"><span style="font-size:13px;font-weight:700">➖ Trừ 2 số</span><div class="tog on" id="tog-sub2"></div></div>
+      <div class="op-tog" onclick="togOp('add3')"><span style="font-size:13px;font-weight:700">➕ Cộng 3 số</span><div class="tog" id="tog-add3"></div></div>
+      <div class="op-tog" onclick="togOp('sub3')"><span style="font-size:13px;font-weight:700">➖ Trừ 3 số</span><div class="tog" id="tog-sub3"></div></div>
+      <div class="op-tog" onclick="togOp('compare')"><span style="font-size:13px;font-weight:700">⚡ So sánh</span><div class="tog on" id="tog-compare"></div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <span style="font-weight:700;font-size:14px">🎵 Âm Thanh</span>
+      <div class="tog on" id="tog-sound" onclick="togSound()"></div>
+    </div>
+    <button class="modal-btn" onclick="closeSettings()" style="width:100%">✅ Lưu</button>
+  </div>
+</div>
+
+<!-- MODAL: Level Up -->
+<div class="modal-ov" id="modal-lvlup">
+  <div class="modal-card">
+    <div class="modal-em">🎉</div>
+    <div class="modal-ttl">Lên Hạng Mới!</div>
+    <div style="font-size:56px;margin:10px 0" id="lu-rank-em">🐱</div>
+    <div style="font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;color:var(--text)" id="lu-rank-nm">Chú Mèo Con</div>
+    <div class="modal-body" id="lu-body">Chúc mừng bé!</div>
+    <button class="modal-btn" onclick="closeLvlUp()">🚀 Tiếp Tục!</button>
+  </div>
+</div>
+
+<!-- MODAL: Name -->
+<div class="modal-ov show" id="modal-name">
+  <div class="modal-card">
+    <div class="modal-em">👋</div>
+    <div class="modal-ttl">Xin Chào!</div>
+    <div class="modal-body">Hãy nhập tên bé để bắt đầu nhé!</div>
+    <input id="name-inp" type="text" placeholder="Tên của bé..." maxlength="12"
+      style="width:100%;padding:12px 15px;border:2px solid #E2E8F0;border-radius:13px;font-family:'Nunito',sans-serif;font-size:18px;font-weight:700;margin:14px 0;outline:none;text-align:center;color:#2D3748"
+      onkeydown="if(event.key==='Enter')saveName()">
+    <button class="modal-btn" onclick="saveName()" style="width:100%">🌟 Bắt Đầu!</button>
+  </div>
+</div>
+
+<!-- MODAL: Game Over -->
+<div class="modal-ov" id="modal-go">
+  <div class="modal-card">
+    <div class="modal-em" id="go-em">⭐</div>
+    <div class="modal-ttl" id="go-ttl">Tuyệt Vời!</div>
+    <div class="modal-body" id="go-body"></div>
+    <div style="display:flex;justify-content:space-around;margin:14px 0;background:#F8F9FA;border-radius:16px;padding:14px">
+      <div style="text-align:center"><div style="font-family:'Baloo 2',cursive;font-size:30px;font-weight:800;color:#FF6B6B" id="go-ok">0</div><div style="font-size:11px;color:#718096">Đúng</div></div>
+      <div style="text-align:center"><div style="font-family:'Baloo 2',cursive;font-size:30px;font-weight:800;color:#F9CA24" id="go-coins">0</div><div style="font-size:11px;color:#718096">Xu</div></div>
+      <div style="text-align:center"><div style="font-family:'Baloo 2',cursive;font-size:30px;font-weight:800;color:#A855F7" id="go-st">0</div><div style="font-size:11px;color:#718096">Liên tiếp</div></div>
+    </div>
+    <div style="display:flex;gap:9px">
+      <button onclick="closeGO()" style="flex:1;background:#EDF2F7;color:#4A5568;border:none;border-radius:14px;padding:13px;font-family:'Baloo 2',cursive;font-size:15px;font-weight:700;cursor:pointer">🏠 Về nhà</button>
+      <button onclick="playAgain()" style="flex:2;background:linear-gradient(135deg,#FF6B6B,#FF4757);color:#fff;border:none;border-radius:14px;padding:13px;font-family:'Baloo 2',cursive;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 15px rgba(255,71,87,.4)">🔄 Chơi Lại!</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Buy -->
+<div class="modal-ov" id="modal-buy">
+  <div class="modal-card">
+    <div class="modal-em" id="buy-em">🎁</div>
+    <div class="modal-ttl">Mua Thành Công!</div>
+    <div class="modal-body" id="buy-body"></div>
+    <button class="modal-btn" onclick="document.getElementById('modal-buy').classList.remove('show')" style="width:100%">😊 Tuyệt Vời!</button>
+  </div>
+</div>
+
+<script>
+// ─── CONSTANTS ────────────────────────────────
+const RANKS=[
+  {nm:'Chú Mèo Con',em:'🐱',min:0,max:150},
+  {nm:'Thỏ Bạc',em:'🐰',min:150,max:400},
+  {nm:'Gấu Vàng',em:'🐻',min:400,max:800},
+  {nm:'Cáo Thần',em:'🦊',min:800,max:1500},
+  {nm:'Kỳ Lân',em:'🦄',min:1500,max:3000},
+  {nm:'Rồng Toán',em:'🐲',min:3000,max:999999},
+];
+
+const SHOP_DATA={
+  avatars:[
+    {id:'cat',nm:'Mèo Con',em:'🐱',p:0},
+    {id:'rabbit',nm:'Thỏ Xinh',em:'🐰',p:30},
+    {id:'bear',nm:'Gấu Bông',em:'🐻',p:50},
+    {id:'fox',nm:'Cáo Nâu',em:'🦊',p:80},
+    {id:'unicorn',nm:'Kỳ Lân',em:'🦄',p:150},
+    {id:'dragon',nm:'Rồng Nhỏ',em:'🐲',p:250},
+    {id:'penguin',nm:'Cánh Cụt',em:'🐧',p:70},
+    {id:'koala',nm:'Gấu Túi',em:'🐨',p:100},
+    {id:'tiger',nm:'Hổ Con',em:'🐯',p:120},
+  ],
+  backgrounds:[
+    {id:'bg0',nm:'Bầu Trời',em:'☁️',p:0},
+    {id:'bg1',nm:'Đại Dương',em:'🌊',p:40},
+    {id:'bg2',nm:'Vũ Trụ',em:'🌌',p:70},
+    {id:'bg3',nm:'Rừng Xanh',em:'🌲',p:50},
+    {id:'bg4',nm:'Vương Kẹo',em:'🍭',p:100},
+    {id:'bg5',nm:'Cầu Vồng',em:'🌈',p:130},
+  ],
+  toys:[
+    {id:'t1',nm:'Mũ Sao',em:'⭐',p:30},
+    {id:'t2',nm:'Gậy Phép',em:'🪄',p:50},
+    {id:'t3',nm:'Vương Miện',em:'👑',p:100},
+    {id:'t4',nm:'Đôi Cánh',em:'🦋',p:70},
+    {id:'t5',nm:'Kính Mát',em:'😎',p:40},
+    {id:'t6',nm:'Nơ Hồng',em:'🎀',p:35},
+  ]
+};
+
+const ACHS_DEF=[
+  {id:'first_ok',nm:'Câu Đầu',em:'✅'},
+  {id:'streak5',nm:'x5 Lửa',em:'🔥'},
+  {id:'streak10',nm:'x10 Siêu',em:'⚡'},
+  {id:'q50',nm:'50 Câu',em:'🌟'},
+  {id:'q100',nm:'100 Câu',em:'💯'},
+  {id:'coins50',nm:'50 Xu',em:'🪙'},
+  {id:'shop1',nm:'Mua Đầu',em:'🛍️'},
+  {id:'all_games',nm:'Thợ Trò',em:'🎮'},
+  {id:'day3',nm:'3 Ngày',em:'📅'},
+  {id:'perfect',nm:'Hoàn Hảo',em:'💎'},
+  {id:'rank3',nm:'Cáo Thần',em:'🦊'},
+  {id:'rank5',nm:'Kỳ Lân',em:'🦄'},
+];
+
+const FRUITS=['🍎','🍊','🍋','🍇','🍓','🍑','🍒','🥝','🍍','🥭'];
+const BCOLS=['#FF6B6B','#74b9ff','#55efc4','#FFB347','#fd79a8','#a29bfe','#ff7675','#26de81'];
+const GMETA={
+  balloon:{ttl:'🎈 Bóng Bay',bg:'bg-balloon',ops:['add2']},
+  fruit:{ttl:'🍎 Vườn Quả',bg:'bg-fruit',ops:['sub2']},
+  compare:{ttl:'⚡ So Sánh',bg:'bg-compare',ops:['compare']},
+  rocket:{ttl:'🚀 Tên Lửa',bg:'bg-rocket',ops:['add3']},
+  magic:{ttl:'🔮 Phù Thủy',bg:'bg-magic',ops:['add2','sub2','add3','compare']},
+};
+
+// ─── STATE ────────────────────────────────────
+let S={
+  name:'',coins:0,totalCoins:0,xp:0,
+  dailyStreak:0,lastPlayDate:'',maxStreak:0,
+  settings:{limit:10,ops:['add2','sub2','compare'],sound:true},
+  inv:{avatar:'cat',bg:'bg0',toy:'',ownedAvatars:['cat'],ownedBgs:['bg0'],ownedToys:[]},
+  hist:[],achs:{},gamesPlayed:{},
+  weak:{add2:{ok:0,tot:0},sub2:{ok:0,tot:0},add3:{ok:0,tot:0},sub3:{ok:0,tot:0},compare:{ok:0,tot:0}},
+  totalQ:0,totalOk:0,
+};
+let SES={gid:'',q:null,coins:0,ok:0,ng:0,streak:0,maxSt:0,qNum:0,maxQ:15,daily:false,pending:false,dailyDone:false,rAns:''};
+let curTab=0;
+
+function saveS(){try{localStorage.setItem('toanbaby_v3',JSON.stringify(S))}catch(e){}}
+function loadS(){
+  try{
+    const raw=localStorage.getItem('toanbaby_v3');
+    if(!raw)return;
+    const d=JSON.parse(raw);
+    Object.keys(S).forEach(k=>{if(d[k]!==undefined)S[k]=d[k]});
+    // merge defaults
+    S.settings={limit:10,ops:['add2','sub2','compare'],sound:true,...(d.settings||{})};
+    S.inv={avatar:'cat',bg:'bg0',toy:'',ownedAvatars:['cat'],ownedBgs:['bg0'],ownedToys:[],...(d.inv||{})};
+    S.weak={add2:{ok:0,tot:0},sub2:{ok:0,tot:0},add3:{ok:0,tot:0},sub3:{ok:0,tot:0},compare:{ok:0,tot:0},...(d.weak||{})};
+    S.achs=d.achs||{};
+    S.gamesPlayed=d.gamesPlayed||{};
+    S.hist=d.hist||[];
+  }catch(e){console.error(e)}
+}
+
+// ─── AUDIO ────────────────────────────────────
+const A={
+  ctx:null,bgLoop:null,
+  init(){try{this.ctx=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}},
+  resume(){if(this.ctx&&this.ctx.state==='suspended')this.ctx.resume()},
+  note(freq,start,dur,type='sine',vol=0.22){
+    if(!this.ctx||!S.settings.sound)return;
+    try{
+      const o=this.ctx.createOscillator(),g=this.ctx.createGain();
+      o.connect(g);g.connect(this.ctx.destination);
+      o.type=type;o.frequency.value=freq;
+      g.gain.setValueAtTime(vol,start);
+      g.gain.exponentialRampToValueAtTime(0.001,start+dur);
+      o.start(start);o.stop(start+dur+0.05);
+    }catch(e){}
+  },
+  SONGS:{
+    balloon:[[523,.45],[659,.45],[784,.45],[659,.45],[880,.9],[784,.45],[659,.45],[523,.9]],
+    fruit:[[392,.45],[440,.45],[494,.45],[523,.9],[494,.45],[440,.45],[392,.9]],
+    compare:[[220,.45,'square'],[277,.45,'square'],[330,.9,'square'],[440,.45,'square'],[330,.9,'square']],
+    rocket:[[262,.22],[330,.22],[392,.22],[523,.45],[659,.22],[784,.22],[1047,.9]],
+    magic:[[523,.3],[659,.3],[784,.3],[1047,.6],[784,.3],[659,.3],[523,.3],[440,.3],[523,.6]],
+  },
+  startBg(gid){
+    this.stopBg();
+    if(!S.settings.sound||!this.ctx)return;
+    const song=this.SONGS[gid];if(!song)return;
+    let spd=130;
+    const play=()=>{
+      if(!S.settings.sound)return;
+      if(!this.ctx)return;
+      let t=this.ctx.currentTime+0.05;
+      song.forEach(([f,b,tp])=>{this.note(f,t,(b*60/spd)*.85,tp||'triangle',0.14);t+=b*60/spd});
+      this.bgLoop=setTimeout(play,(t-this.ctx.currentTime)*1000);
+    };
+    play();
+  },
+  stopBg(){clearTimeout(this.bgLoop);this.bgLoop=null},
+  correct(){
+    if(!this.ctx||!S.settings.sound)return;this.resume();
+    const t=this.ctx.currentTime;
+    [[523,.07,'square'],[659,.07,'square'],[784,.07,'square'],[1047,.18,'square']].forEach(([f,d,tp],i)=>this.note(f,t+i*.08,d,tp,.25));
+  },
+  wrong(){
+    if(!this.ctx||!S.settings.sound)return;this.resume();
+    const t=this.ctx.currentTime;
+    this.note(200,t,.18,'sawtooth',.25);this.note(150,t+.18,.22,'sawtooth',.22);
+  },
+  levelUp(){
+    if(!this.ctx||!S.settings.sound)return;this.resume();
+    const t=this.ctx.currentTime;
+    [[262,.07],[330,.07],[392,.07],[523,.07],[659,.07],[784,.07],[1047,.25]].forEach(([f,d],i)=>this.note(f,t+i*.08,d,'triangle',.32));
+  },
+  coin(){
+    if(!this.ctx||!S.settings.sound)return;this.resume();
+    const t=this.ctx.currentTime;
+    this.note(1047,t,.09,'sine',.22);this.note(1319,t+.09,.14,'sine',.22);
+  },
+};
+
+// ─── HELPERS ──────────────────────────────────
+const ri=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=ri(0,i);[a[i],a[j]]=[a[j],a[i]]}return a}
+function getRank(xp){for(let i=RANKS.length-1;i>=0;i--)if(xp>=RANKS[i].min)return RANKS[i];return RANKS[0]}
+
+// ─── QUESTIONS ────────────────────────────────
+function genQ(type,lim){
+  switch(type){
+    case'add2':{const a=ri(0,lim),b=ri(0,lim-a);return{type,q:`${a} + ${b} = ?`,ans:a+b,a,b}}
+    case'sub2':{const a=ri(1,lim),b=ri(0,a);return{type,q:`${a} − ${b} = ?`,ans:a-b,a,b}}
+    case'add3':{const m=Math.floor(lim/3),a=ri(0,m),b=ri(0,m),c=ri(0,lim-a-b);return{type,q:`${a} + ${b} + ${c} = ?`,ans:a+b+c,a,b,c}}
+    case'sub3':{const a=ri(3,lim),b=ri(0,Math.floor(a/2)),c=ri(0,a-b);return{type,q:`${a} − ${b} − ${c} = ?`,ans:a-b-c,a,b,c}}
+    case'compare':{const a=ri(0,lim),b=ri(0,lim);const ans=a<b?'<':a>b?'>':'=';return{type,q:`${a} ☐ ${b}`,ans,a,b}}
+    default:return genQ('add2',lim);
+  }
+}
+function genWrong(correct,type,lim){
+  if(type==='compare'){const all=['<','>','='];return shuffle(all.filter(x=>x!==correct)).slice(0,3)}
+  const w=new Set();let tries=0;
+  while(w.size<3&&tries<80){tries++;
+    const off=ri(1,Math.max(3,Math.floor(lim*.3)));
+    const cand=correct+(Math.random()>.5?off:-off);
+    if(cand>=0&&cand<=lim+10&&String(cand)!==String(correct))w.add(cand);
+  }
+  let i=1;while(w.size<3)w.add(Math.max(0,correct+i++));
+  return Array.from(w);
+}
+function adaptiveType(){
+  const ops=S.settings.ops.length?S.settings.ops:['add2'];
+  const wts=ops.map(op=>{const d=S.weak[op]||{ok:0,tot:0};return d.tot===0?1.5:Math.max(.1,1.2-d.ok/d.tot)});
+  const total=wts.reduce((a,b)=>a+b,0);let r=Math.random()*total;
+  for(let i=0;i<ops.length;i++){r-=wts[i];if(r<=0)return ops[i]}
+  return ops[0];
+}
+
+// ─── NAVIGATION ───────────────────────────────
+function navigate(page){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('screen-'+page).classList.add('active');
+  const nb=document.getElementById('nav-'+page);
+  if(nb)nb.classList.add('active');
+  if(page==='home')updHome();
+  if(page==='progress')updProgress();
+  if(page==='shop')updShop();
+  if(page==='games')updGamesPage();
+}
+
+// ─── HOME ─────────────────────────────────────
+function updHome(){
+  const av=SHOP_DATA.avatars.find(x=>x.id===S.inv.avatar)||SHOP_DATA.avatars[0];
+  document.getElementById('h-avatar').textContent=av.em+(S.inv.toy?SHOP_DATA.toys.find(x=>x.id===S.inv.toy)?.em||'':'');
+  document.getElementById('h-coins').textContent=S.coins;
+  document.getElementById('h-name').textContent=S.name||'Bé Yêu';
+  const rank=getRank(S.xp);
+  document.getElementById('h-rank-em').textContent=rank.em;
+  document.getElementById('h-rank-nm').textContent=rank.nm;
+  const nextRank=RANKS.find(r=>r.min>S.xp)||rank;
+  const pct=rank.max===999999?100:Math.min(100,Math.round((S.xp-rank.min)/(rank.max-rank.min)*100));
+  document.getElementById('xp-fill').style.width=pct+'%';
+  document.getElementById('xp-cur').textContent=S.xp+' XP';
+  document.getElementById('xp-nxt').textContent=(rank.max===999999?'MAX':rank.max)+' XP';
+  document.getElementById('xp-lvl-lbl').textContent='Hạng: '+rank.nm+' '+rank.em;
+  document.getElementById('h-streak').textContent=S.dailyStreak+' ngày';
+  document.getElementById('h-best').textContent=S.maxStreak||0;
+  const today=new Date().toDateString();
+  const dailyDone=!!localStorage.getItem('daily_'+today);
+  document.getElementById('daily-desc').textContent=dailyDone?'✅ Đã hoàn thành hôm nay!':'10 câu hỏi · Thưởng 50 xu 🎁';
+  renderAchs('h-ach-grid');
+}
+
+function updGamesPage(){
+  document.getElementById('lim-lbl').textContent='Kết quả ≤ '+S.settings.limit;
+  renderAchs('g-ach-grid');
+}
+
+function renderAchs(containerId){
+  const ct=document.getElementById(containerId);if(!ct)return;
+  ct.innerHTML=ACHS_DEF.map(a=>`
+    <div class="ach-item ${S.achs[a.id]?'':'locked'}" title="${a.nm}">
+      <div class="ach-em">${a.em}</div>
+      <div class="ach-nm">${a.nm}</div>
+    </div>`).join('');
+}
+
+// ─── GAME FLOW ────────────────────────────────
+function startGame(gid,isDaily=false){
+  A.resume();
+  SES={gid,q:null,coins:0,ok:0,ng:0,streak:0,maxSt:0,qNum:0,maxQ:isDaily?10:15,daily:isDaily,pending:false,dailyDone:false,rAns:''};
+  S.gamesPlayed[gid]=(S.gamesPlayed[gid]||0)+1;
+  if(Object.keys(S.gamesPlayed).length>=5)unlockAch('all_games');
+  A.startBg(gid);
+  navigate('play');
+  const ps=document.getElementById('screen-play');
+  ps.className='screen active '+GMETA[gid].bg;
+  document.getElementById('g-title').textContent=GMETA[gid].ttl;
+  // add star decorations for space games
+  document.querySelectorAll('.star-deco').forEach(e=>e.remove());
+  if(gid==='rocket'||gid==='compare'){
+    for(let i=0;i<22;i++){
+      const el=document.createElement('span');
+      el.className='star-deco';
+      el.style.cssText=`position:absolute;top:${ri(5,92)}%;left:${ri(2,96)}%;font-size:${ri(10,20)}px;animation-delay:${ri(0,15)*.1}s;opacity:.6;z-index:0`;
+      el.textContent=['⭐','✨','💫'][ri(0,2)];
+      ps.appendChild(el);
+    }
+    ps.style.position='relative';
+  }
+  updScore();
+  nextQ();
+  saveS();
+}
+
+function startDaily(){
+  const today=new Date().toDateString();
+  if(localStorage.getItem('daily_'+today)){alert('🌟 Bé đã hoàn thành thử thách hôm nay rồi! Quay lại ngày mai nhé!');return}
+  startGame('magic',true);
+}
+
+function nextQ(){
+  if(SES.pending)return;
+  if(SES.qNum>=SES.maxQ){endGame();return}
+  SES.qNum++;
+  let type;
+  if(SES.gid==='magic')type=adaptiveType();
+  else{const ops=GMETA[SES.gid].ops;type=ops[ri(0,ops.length-1)]}
+  SES.q=genQ(type,S.settings.limit);
+  SES.rAns='';
+  updScore();
+  renderGame();
+}
+
+function checkAns(userAns){
+  if(SES.pending)return;
+  SES.pending=true;
+  const q=SES.q;
+  const correct=(String(userAns)===String(q.ans));
+  // record weak stats
+  if(S.weak[q.type]){S.weak[q.type].tot++;if(correct)S.weak[q.type].ok++}
+  S.hist.unshift({date:new Date().toISOString(),type:q.type,q:q.q,ok:correct,ans:q.ans,ua:userAns});
+  if(S.hist.length>100)S.hist=S.hist.slice(0,100);
+  S.totalQ++;
+  if(correct){
+    // correct answer
+    S.totalOk++;SES.ok++;SES.streak++;SES.maxSt=Math.max(SES.maxSt,SES.streak);
+    // global streak
+    const today=new Date().toDateString();
+    if(S.lastPlayDate!==today){
+      const yd=new Date();yd.setDate(yd.getDate()-1);
+      S.dailyStreak=(S.lastPlayDate===yd.toDateString())?S.dailyStreak+1:1;
+      S.lastPlayDate=today;
+    }
+    // coins
+    let earn=1;
+    if(SES.streak>=10)earn=5;
+    else if(SES.streak>=5)earn=3;
+    else if(SES.streak>=3)earn=2;
+    SES.coins+=earn;S.coins+=earn;S.totalCoins+=earn;
+    // xp
+    const oldXP=S.xp;
+    S.xp+=5+(SES.streak>=5?5:0);
+    A.correct();
+    showFeedback('✅');
+    showCoinPop('+'+earn);
+    checkLvlUp(oldXP);
+    checkAchs();
+    saveS();
+    setTimeout(()=>{SES.pending=false;nextQ()},650);
+  } else {
+    SES.ng++;SES.streak=0;
+    A.wrong();
+    showFeedback('❌');
+    saveS();
+    setTimeout(()=>{SES.pending=false;nextQ()},850);
+  }
+}
+
+function checkLvlUp(oldXP){
+  const oldR=getRank(oldXP),newR=getRank(S.xp);
+  if(newR.nm!==oldR.nm){
+    A.levelUp();spawnConfetti();
+    setTimeout(()=>{
+      document.getElementById('lu-rank-em').textContent=newR.em;
+      document.getElementById('lu-rank-nm').textContent=newR.nm;
+      document.getElementById('lu-body').textContent='Bé đã đạt hạng '+newR.nm+'! 🎊';
+      document.getElementById('modal-lvlup').classList.add('show');
+    },700);
+  }
+}
+
+function checkAchs(){
+  if(S.totalOk>=1)unlockAch('first_ok');
+  if(SES.streak>=5)unlockAch('streak5');
+  if(SES.streak>=10)unlockAch('streak10');
+  if(S.totalQ>=50)unlockAch('q50');
+  if(S.totalQ>=100)unlockAch('q100');
+  if(S.totalCoins>=50)unlockAch('coins50');
+  if(S.dailyStreak>=3)unlockAch('day3');
+  const rank=getRank(S.xp);
+  if(RANKS.indexOf(rank)>=3)unlockAch('rank3');
+  if(RANKS.indexOf(rank)>=4)unlockAch('rank5');
+}
+
+function unlockAch(id){
+  if(S.achs[id])return;
+  S.achs[id]=true;saveS();
+  const a=ACHS_DEF.find(x=>x.id===id);
+  if(a){showToast(a.em+' '+a.nm+' unlocked!')}
+}
+
+function endGame(){
+  A.stopBg();
+  if(SES.daily&&!SES.dailyDone){
+    SES.dailyDone=true;S.coins+=50;S.totalCoins+=50;SES.coins+=50;
+    const today=new Date().toDateString();
+    localStorage.setItem('daily_'+today,'1');
+  }
+  if(SES.ok===SES.maxQ&&SES.ng===0)unlockAch('perfect');
+  S.maxStreak=Math.max(S.maxStreak||0,SES.maxSt);
+  saveS();
+  const pct=SES.ok/SES.maxQ;
+  document.getElementById('go-em').textContent=pct>=.8?'⭐':pct>=.5?'😊':'💪';
+  document.getElementById('go-ttl').textContent=pct>=.8?'Tuyệt Vời! 🎉':pct>=.5?'Làm Tốt Lắm! 👏':'Cố Lên Nhé! 💪';
+  document.getElementById('go-body').textContent=`${SES.ok}/${SES.maxQ} câu đúng`+(SES.daily?' • +50 xu thưởng ngày! 🎁':'');
+  document.getElementById('go-ok').textContent=SES.ok;
+  document.getElementById('go-coins').textContent=SES.coins;
+  document.getElementById('go-st').textContent=SES.maxSt;
+  document.getElementById('modal-go').classList.add('show');
+  spawnConfetti();
+}
+
+function leaveGame(){
+  if(SES.qNum>0&&SES.qNum<SES.maxQ){if(!confirm('Thoát? Tiến độ sẽ không lưu.'))return}
+  A.stopBg();navigate('home');
+}
+function closeGO(){document.getElementById('modal-go').classList.remove('show');navigate('home')}
+function playAgain(){document.getElementById('modal-go').classList.remove('show');startGame(SES.gid,SES.daily)}
+function closeLvlUp(){document.getElementById('modal-lvlup').classList.remove('show')}
+
+function updScore(){
+  document.getElementById('g-coins').textContent=SES.coins;
+  document.getElementById('g-streak').textContent=SES.streak;
+  document.getElementById('g-ok').textContent=SES.ok;
+}
+
+// ─── RENDER GAMES ─────────────────────────────
+function mkProg(){
+  return '<div class="q-prog">'+Array.from({length:SES.maxQ},(_,i)=>`<div class="prog-dot ${i<SES.ok?'done':i===SES.qNum-1?'cur':''}"></div>`).join('')+'</div>';
+}
+
+function renderGame(){
+  const gid=SES.gid,q=SES.q;
+  if(!q)return;
+  if(gid==='balloon')renderBalloon(q);
+  else if(gid==='fruit')renderFruit(q);
+  else if(gid==='compare')renderCompare(q);
+  else if(gid==='rocket')renderRocket(q);
+  else{
+    // magic - pick renderer by type
+    if(q.type==='compare')renderCompare(q);
+    else if(q.type==='add3'||q.type==='sub3')renderNumpad(q);
+    else renderChoices(q);
+  }
+}
+
+function renderBalloon(q){
+  const opts=shuffle([q.ans,...genWrong(q.ans,q.type,S.settings.limit)]);
+  const isDark=false;
+  document.getElementById('g-content').innerHTML=`
+    <div class="q-area">
+      <div class="q-card">
+        <div class="q-label">🎈 Bấm vào bóng có đáp án đúng!</div>
+        <div class="q-txt">${q.q}</div>
+        ${mkProg()}
+      </div>
+    </div>
+    <div class="balloons-area">
+      ${opts.map((a,i)=>`<div class="balloon" style="background:${BCOLS[i%BCOLS.length]};animation-delay:${i*.2}s" data-ans="${a}">${a}</div>`).join('')}
+    </div>`;
+  document.querySelectorAll('.balloon').forEach(b=>{
+    b.addEventListener('click',function(){
+      if(SES.pending)return;
+      const ans=this.dataset.ans;
+      const ok=String(ans)===String(q.ans);
+      if(!ok)this.classList.add('popped');
+      checkAns(ans);
+    });
+  });
+}
+
+function renderFruit(q){
+  const {a,b}=q;
+  const fruit=FRUITS[ri(0,FRUITS.length-1)];
+  const opts=shuffle([q.ans,...genWrong(q.ans,q.type,S.settings.limit)]);
+  const fHtml=Array.from({length:a},(_,i)=>`<span class="fi${i>=(a-b)?' removed':''}">${fruit}</span>`).join('');
+  document.getElementById('g-content').innerHTML=`
+    <div class="q-area">
+      <div class="q-card">
+        <div class="q-label">🍎 Còn lại bao nhiêu quả?</div>
+        <div class="q-txt">${q.q}</div>
+        <div class="fruit-display">${fHtml}</div>
+        ${mkProg()}
+      </div>
+    </div>
+    <div class="opts" id="opts-area">
+      ${opts.map(o=>`<button class="opt-btn" data-ans="${o}">${o}</button>`).join('')}
+    </div>`;
+  bindOptBtns(q.ans);
+}
+
+function renderCompare(q){
+  const {a,b}=q;
+  document.getElementById('g-content').innerHTML=`
+    <div class="q-area">
+      <div class="q-card">
+        <div class="q-label">⚡ Điền dấu đúng vào ô trống!</div>
+        <div class="cmp-area">
+          <div class="cmp-grp">
+            <div class="cmp-num" style="color:${SES.gid==='compare'||SES.gid==='rocket'?'#fff':'#2D3748'}">${a}</div>
+            <div class="cmp-dots">${Array.from({length:Math.min(a,15)},()=>'🔵').join(' ')}</div>
+          </div>
+          <div style="font-size:44px">❓</div>
+          <div class="cmp-grp">
+            <div class="cmp-num" style="color:${SES.gid==='compare'||SES.gid==='rocket'?'#fff':'#2D3748'}">${b}</div>
+            <div class="cmp-dots">${Array.from({length:Math.min(b,15)},()=>'🔴').join(' ')}</div>
+          </div>
+        </div>
+        ${mkProg()}
+      </div>
+    </div>
+    <div class="cmp-op-btns">
+      <button class="cop cop-lt" data-ans="&lt;">&lt;</button>
+      <button class="cop cop-eq" data-ans="=">=</button>
+      <button class="cop cop-gt" data-ans="&gt;">&gt;</button>
+    </div>`;
+  document.querySelectorAll('.cop').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      if(SES.pending)return;
+      const ua=this.dataset.ans;
+      document.querySelectorAll('.cop').forEach(b=>{b.disabled=true;b.style.opacity='.6'});
+      const ok=String(ua)===String(q.ans);
+      this.style.opacity='1';
+      this.style.transform='scale(1.15)';
+      checkAns(ua);
+    });
+  });
+}
+
+function renderRocket(q){
+  SES.rAns='';
+  document.getElementById('g-content').innerHTML=`
+    <div class="q-area">
+      <div class="q-card">
+        <div class="q-label">🚀 Tính rồi nhập đáp án!</div>
+        <div class="q-txt">${q.q}</div>
+        ${mkProg()}
+      </div>
+    </div>
+    <div class="ans-disp" id="r-disp" style="color:#fff">?</div>
+    <div class="numpad">
+      ${[7,8,9,4,5,6,1,2,3].map(n=>`<button class="np-btn" onclick="rInp('${n}')">${n}</button>`).join('')}
+      <button class="np-btn" onclick="rInp('del')" style="font-size:22px">⌫</button>
+      <button class="np-btn" onclick="rInp('0')">0</button>
+      <button class="np-btn np-ok" onclick="rInp('ok')">✅ OK</button>
+    </div>`;
+}
+
+function renderNumpad(q){
+  SES.rAns='';
+  document.getElementById('g-content').innerHTML=`
+    <div class="q-area">
+      <div class="q-card">
+        <div class="q-label">🔮 Tính rồi nhập đáp án!</div>
+        <div class="q-txt">${q.q}</div>
+        ${mkProg()}
+      </div>
+    </div>
+    <div class="ans-disp" id="r-disp">?</div>
+    <div class="numpad">
+      ${[7,8,9,4,5,6,1,2,3].map(n=>`<button class="np-btn" onclick="rInp('${n}')">${n}</button>`).join('')}
+      <button class="np-btn" onclick="rInp('del')" style="font-size:22px">⌫</button>
+      <button class="np-btn" onclick="rInp('0')">0</button>
+      <button class="np-btn np-ok" onclick="rInp('ok')">✅ OK</button>
+    </div>`;
+}
+
+function renderChoices(q){
+  const opts=shuffle([q.ans,...genWrong(q.ans,q.type,S.settings.limit)]);
+  document.getElementById('g-content').innerHTML=`
+    <div class="q-area">
+      <div class="q-card">
+        <div class="q-label">🔮 Chọn đáp án đúng nào!</div>
+        <div class="q-txt">${q.q}</div>
+        ${mkProg()}
+      </div>
+    </div>
+    <div class="opts" id="opts-area">
+      ${opts.map(o=>`<button class="opt-btn" data-ans="${o}">${o}</button>`).join('')}
+    </div>`;
+  bindOptBtns(q.ans);
+}
+
+function bindOptBtns(correctAns){
+  document.querySelectorAll('.opt-btn').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      if(SES.pending)return;
+      const ua=this.dataset.ans;
+      const ok=String(ua)===String(correctAns);
+      // disable all buttons immediately
+      document.querySelectorAll('.opt-btn').forEach(b=>{b.disabled=true;b.style.pointerEvents='none'});
+      this.classList.add(ok?'correct':'wrong');
+      checkAns(ua);
+    });
+  });
+}
+
+function rInp(k){
+  const d=document.getElementById('r-disp');
+  if(!d)return;
+  if(k==='del'){
+    SES.rAns=SES.rAns.slice(0,-1);
+  }else if(k==='ok'){
+    if(SES.rAns==='')return;
+    checkAns(parseInt(SES.rAns));
+    return;
+  }else{
+    if(SES.rAns.length>=2)return;
+    SES.rAns+=k;
+  }
+  d.textContent=SES.rAns||'?';
+}
+
+// ─── SHOP ─────────────────────────────────────
+let shopTab='avatars';
+function switchTab(cat,idx){
+  shopTab=cat;curTab=idx;
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+  updShop();
+}
+function updShop(){
+  document.getElementById('sh-coins').textContent=S.coins;
+  const items=SHOP_DATA[shopTab]||[];
+  let owned=shopTab==='avatars'?S.inv.ownedAvatars:shopTab==='backgrounds'?S.inv.ownedBgs:S.inv.ownedToys;
+  let equipped=shopTab==='avatars'?S.inv.avatar:shopTab==='backgrounds'?S.inv.bg:S.inv.toy;
+  document.getElementById('sh-grid').innerHTML=items.map(item=>{
+    const isOwned=owned.includes(item.id);
+    const isEq=equipped===item.id;
+    return `<div class="sh-item ${isOwned?'owned':''} ${isEq?'equipped':''}" onclick="shopAction('${item.id}','${shopTab}')">
+      <div class="sh-em">${item.em}</div>
+      <div class="sh-nm">${item.nm}</div>
+      ${isEq?'<div class="sh-status">✅ Đang dùng</div>':isOwned?'<div class="sh-status">👆 Dùng ngay</div>':`<div class="sh-price">🪙 ${item.p}</div>`}
+    </div>`;
+  }).join('');
+}
+
+function shopAction(id,cat){
+  const items=SHOP_DATA[cat];
+  const item=items.find(x=>x.id===id);if(!item)return;
+  let owned=cat==='avatars'?S.inv.ownedAvatars:cat==='backgrounds'?S.inv.ownedBgs:S.inv.ownedToys;
+  if(owned.includes(id)){
+    if(cat==='avatars')S.inv.avatar=id;
+    else if(cat==='backgrounds')S.inv.bg=id;
+    else S.inv.toy=id;
+    saveS();updShop();updHome();return;
+  }
+  if(S.coins<item.p){showToast('❌ Không đủ xu!');return}
+  S.coins-=item.p;
+  if(cat==='avatars')S.inv.ownedAvatars.push(id);
+  else if(cat==='backgrounds')S.inv.ownedBgs.push(id);
+  else S.inv.ownedToys.push(id);
+  if(cat==='avatars')S.inv.avatar=id;
+  else if(cat==='backgrounds')S.inv.bg=id;
+  else S.inv.toy=id;
+  unlockAch('shop1');
+  saveS();updShop();updHome();
+  document.getElementById('buy-em').textContent=item.em;
+  document.getElementById('buy-body').textContent='Đã mua '+item.nm+'!';
+  document.getElementById('modal-buy').classList.add('show');
+}
+
+// ─── PROGRESS ─────────────────────────────────
+function updProgress(){
+  document.getElementById('s-total').textContent=S.totalQ;
+  document.getElementById('s-acc').textContent=S.totalQ?Math.round(S.totalOk/S.totalQ*100)+'%':'0%';
+  document.getElementById('s-coins').textContent=S.totalCoins;
+  document.getElementById('s-streak').textContent=S.maxStreak||0;
+  // chart
+  const chart=document.getElementById('mini-chart');
+  const days=[];
+  for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push(d.toDateString())}
+  const perDay=days.map(d=>{
+    const dayH=S.hist.filter(h=>new Date(h.date).toDateString()===d);
+    const ok=dayH.filter(h=>h.ok).length;
+    return{ok,tot:dayH.length};
+  });
+  const maxOk=Math.max(1,...perDay.map(x=>x.ok));
+  if(perDay.some(x=>x.tot>0)){
+    chart.innerHTML=perDay.map((x,i)=>{
+      const h=Math.round((x.ok/maxOk)*100)||4;
+      const dayNm=['CN','T2','T3','T4','T5','T6','T7'][new Date(days[i]).getDay()];
+      return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">
+        <div style="font-size:11px;font-weight:700;color:#A0AEC0">${x.ok}</div>
+        <div class="c-bar" style="height:${h}%;background:${x.ok>0?'linear-gradient(180deg,#FF6B6B,#FF4757)':'#E2E8F0'}"></div>
+        <div style="font-size:10px;font-weight:700;color:#A0AEC0">${dayNm}</div>
+      </div>`;}).join('');
+  }else{chart.innerHTML='<div style="color:#A0AEC0;font-size:13px;font-style:italic;margin:auto">Chưa có dữ liệu</div>'}
+  // weak bars
+  const wb=document.getElementById('weak-bars');
+  const typeLabels={add2:'➕ Cộng 2 số',sub2:'➖ Trừ 2 số',add3:'➕ Cộng 3 số',sub3:'➖ Trừ 3 số',compare:'⚡ So sánh'};
+  const barColors={add2:'#FF6B6B',sub2:'#4ECDC4',add3:'#FFE66D',sub3:'#A855F7',compare:'#3B82F6'};
+  wb.innerHTML=Object.entries(S.weak).map(([t,d])=>{
+    if(d.tot===0)return'';
+    const pct=Math.round(d.ok/d.tot*100);
+    return`<div class="weak-bar">
+      <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700">
+        <span>${typeLabels[t]}</span><span style="color:${pct>=70?'#10B981':'#FF6B6B'}">${pct}%</span>
+      </div>
+      <div class="weak-track"><div class="weak-fill" style="width:${pct}%;background:${barColors[t]}"></div></div>
+    </div>`;}).join('')||'<div style="color:#A0AEC0;font-size:13px">Hãy chơi để xem đánh giá!</div>';
+  // history
+  const hl=document.getElementById('hist-list');
+  if(!S.hist.length){hl.innerHTML='<div style="color:#A0AEC0;font-size:13px;text-align:center;padding:20px">Chưa có lịch sử</div>';return}
+  hl.innerHTML=S.hist.slice(0,20).map(h=>`
+    <div class="hist-item ${h.ok?'hist-ok':'hist-ng'}">
+      <div><div style="font-size:14px;font-weight:700">${h.q}</div><div style="font-size:11px;color:#718096">${typeLabels[h.type]||h.type}</div></div>
+      <div style="text-align:right"><div style="font-size:16px">${h.ok?'✅':'❌'}</div><div style="font-size:11px;color:#718096">= ${h.ans}</div></div>
+    </div>`).join('');
+}
+
+// ─── SETTINGS ─────────────────────────────────
+function showSettings(){
+  // sync toggles to state
+  const ops=S.settings.ops;
+  ['add2','sub2','add3','sub3','compare'].forEach(op=>{
+    const el=document.getElementById('tog-'+op);
+    if(el){el.className='tog'+(ops.includes(op)?' on':'')}
+  });
+  const sd=document.getElementById('tog-sound');
+  if(sd)sd.className='tog'+(S.settings.sound?' on':'');
+  // sync limit buttons
+  document.querySelectorAll('.lim-btn').forEach(b=>{
+    b.classList.toggle('sel',parseInt(b.textContent)===S.settings.limit);
+  });
+  document.getElementById('modal-set').classList.add('show');
+}
+function closeSettings(){
+  document.getElementById('modal-set').classList.remove('show');
+  document.getElementById('lim-lbl').textContent='Kết quả ≤ '+S.settings.limit;
+  saveS();
+}
+function selLim(n,btn){
+  S.settings.limit=n;
+  document.querySelectorAll('.lim-btn').forEach(b=>b.classList.remove('sel'));
+  if(btn)btn.classList.add('sel');
+}
+function togOp(op){
+  const i=S.settings.ops.indexOf(op);
+  if(i>=0){if(S.settings.ops.length>1)S.settings.ops.splice(i,1)}
+  else S.settings.ops.push(op);
+  const el=document.getElementById('tog-'+op);
+  if(el)el.className='tog'+(S.settings.ops.includes(op)?' on':'');
+}
+function togSound(){
+  S.settings.sound=!S.settings.sound;
+  const el=document.getElementById('tog-sound');
+  if(el)el.className='tog'+(S.settings.sound?' on':'');
+  if(S.settings.sound)A.resume();
+  else A.stopBg();
+}
+
+// ─── NAME ─────────────────────────────────────
+function saveName(){
+  const v=(document.getElementById('name-inp').value||'').trim();
+  if(!v){document.getElementById('name-inp').style.border='2px solid #FF6B6B';return}
+  S.name=v;
+  document.getElementById('modal-name').classList.remove('show');
+  saveS();updHome();
+}
+function resetName(){
+  closeSettings();
+  setTimeout(()=>{
+    document.getElementById('name-inp').value=S.name||'';
+    document.getElementById('modal-name').classList.add('show');
+  },300);
+}
+
+// ─── EFFECTS ──────────────────────────────────
+function showFeedback(em){
+  const el=document.createElement('div');
+  el.className='feedback-pop';el.textContent=em;
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),800);
+}
+function showCoinPop(txt){
+  const el=document.createElement('div');
+  el.className='coin-pop';el.textContent=txt+'🪙';
+  el.style.cssText='top:35%;left:'+ri(30,70)+'%;';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),1000);
+}
+function spawnConfetti(){
+  const cols=['#FF6B6B','#FFE66D','#4ECDC4','#A855F7','#FF8E53','#26de81'];
+  for(let i=0;i<22;i++){
+    const el=document.createElement('div');
+    el.className='confetti-p';
+    el.style.cssText=`top:${ri(20,60)}%;left:${ri(10,90)}%;background:${cols[ri(0,cols.length-1)]};animation-delay:${ri(0,8)*.1}s`;
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),1400);
+  }
+}
+let toastTm=null;
+function showToast(msg){
+  let t=document.getElementById('toast-el');
+  if(!t){t=document.createElement('div');t.id='toast-el';t.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);color:#fff;padding:10px 20px;border-radius:18px;font-weight:700;font-size:14px;z-index:500;transition:opacity .3s;white-space:nowrap';document.body.appendChild(t)}
+  t.textContent=msg;t.style.opacity='1';
+  clearTimeout(toastTm);toastTm=setTimeout(()=>t.style.opacity='0',2000);
+}
+
+// ─── INIT ─────────────────────────────────────
+window.addEventListener('load',()=>{
+  A.init();
+  loadS();
+  if(S.name){
+    document.getElementById('modal-name').classList.remove('show');
+    navigate('home');
+  }else{
+    document.getElementById('modal-name').classList.add('show');
+    navigate('home');
+  }
+  setTimeout(()=>{
+    const l=document.getElementById('loading');
+    if(l){l.classList.add('fade');setTimeout(()=>{l.style.display='none'},500)}
+  },1200);
+  // Check daily streak reset
+  const today=new Date().toDateString();
+  if(S.lastPlayDate&&S.lastPlayDate!==today){
+    const yd=new Date();yd.setDate(yd.getDate()-1);
+    if(S.lastPlayDate!==yd.toDateString())S.dailyStreak=0;
+  }
+  // Fix owned arrays if missing
+  if(!S.inv.ownedAvatars)S.inv.ownedAvatars=['cat'];
+  if(!S.inv.ownedBgs)S.inv.ownedBgs=['bg0'];
+  if(!S.inv.ownedToys)S.inv.ownedToys=[];
+  saveS();
+});
+
+// Unlock AudioContext on first touch
+document.addEventListener('touchstart',()=>A.resume(),{once:true});
+document.addEventListener('click',()=>A.resume(),{once:true});
+</script>
+</body>
+</html>
